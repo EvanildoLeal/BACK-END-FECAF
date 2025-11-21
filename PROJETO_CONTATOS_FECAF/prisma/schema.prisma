@@ -1,4 +1,4 @@
-﻿generator client {
+generator client {
   provider = "prisma-client-js"
 }
 
@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Criando uma tabela de pelo ORM
+// Criando uma tabela pelo ORM
 model tbl_contatos {
   id    Int    @id @default(autoincrement())
   nome  String

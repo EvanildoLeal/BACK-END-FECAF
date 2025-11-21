@@ -58,8 +58,8 @@ app.get('/v1/fecaf/contatos', cors(), async function (request, response, next) {
   let dadosContato = await controllerContatos.getContatos();
 
   if (dadosContato) {
-      response.json(dadosContato);
       response.status(200);
+      response.json(dadosContato);
   } else {
       response.status(404);
   }
