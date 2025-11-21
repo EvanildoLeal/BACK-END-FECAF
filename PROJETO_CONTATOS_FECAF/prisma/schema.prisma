@@ -1,0 +1,16 @@
+﻿generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//Criando uma tabela de pelo ORM
+model tbl_contatos {
+  id    Int    @id @default(autoincrement())
+  nome  String
+  cpf   String
+  email String
+}
