@@ -52,6 +52,7 @@ app.use((request, response, next) => {
 const controllerContatos = require('./controller/controllerContato.js');
 
 //Endpoints -> Será um GET para retornar todos os contatos do BD
+
 app.get('/v1/fecaf/contatos', cors(), async function (request, response, next) {
    
   let dadosContato = await controllerContatos.getContatos();

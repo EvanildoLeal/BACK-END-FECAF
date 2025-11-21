@@ -18,11 +18,11 @@ const getContatos = async function () {
 
   //Valida o retorno dos dados
   if (dadosContatos) {
-    jsonContatos.cont = dadosContatos.length;
-    jsonContatos.contatos = dadosContatos;
+      jsonContatos.count = dadosContatos.length;
+      jsonContatos.contatos = dadosContatos;
     return jsonContatos;
   } else {
-    return false;
+      return false;
   }
 };
 
