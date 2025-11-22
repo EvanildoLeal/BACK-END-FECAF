@@ -74,10 +74,29 @@ const setDeleteContato = async function(id) {
   }   
 };
 
+//Retorna contatos pelo nome
+const getContatosByName = async function (nomeContato) {
+  //Cria um objeto JSON 
+  let jsonContatos = {};
+
+  //Solicita os dados do BD na model
+  let dadosContatos = await contatoDAO.selectByNameContato(nomeContato);
+
+  //Valida o retorno dos dados
+  if (dadosContatos) {
+    jsonContatos.count = dadosContatos.length;
+    jsonContatos.contatos = dadosContatos;
+    return jsonContatos;
+  } else {
+    return false;
+  }
+};
+
 
  module.exports = {
     getContatos,
     setNewContato,
     setUpdateContato,
-    setDeleteContato
+    setDeleteContato,
+    getContatosByName
 };

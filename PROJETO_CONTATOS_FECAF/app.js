@@ -69,6 +69,22 @@ app.get('/v1/fecaf/contatos', cors(), async function (request, response, next) {
   }
 });
 
+//Endpoint: GET retornar os contatos filtrando pelo nome
+app.get('/v1/fecaf/contato', cors(), async function (request, response, next) {
+  //Recebe uma variável via Query String
+  let nomeContato = request.query.nome;
+
+  let dadosContato = await controllerContatos.getContatosByName(nomeContato);
+  if (dadosContato) {
+      response.status(200);
+      response.json(dadosContato);
+  } else {
+    response.status(404);
+    response.json({ message: 'Nenhum contato encontrado com esse nome.' });  
+  }
+
+});
+
 //Endpoint: POST para inserir um novo contato no BD
 app.post('/v1/fecaf/contato', cors(), bodyParserJson, async function(request, response, next) {
   let dados = request.body;
