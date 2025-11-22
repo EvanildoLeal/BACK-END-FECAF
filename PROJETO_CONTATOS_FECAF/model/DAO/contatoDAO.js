@@ -50,12 +50,20 @@ const updateContato = async function (contato, id) {
         return false;
 };
 
+const deleteContato = async function (id) {
+    let sql = `delete from tbl_contatos where id = ${id}`; 
 
+    let result = await prisma.$executeRawUnsafe(sql);
 
-
+    if (result)
+        return true;
+    else
+        return false;
+};
 
 module.exports = {
-    selectAllContatos,
-    insertContato,
-    updateContato
+  selectAllContatos,
+  insertContato,
+  updateContato,
+  deleteContato,
 };

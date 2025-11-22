@@ -86,6 +86,7 @@ app.post('/v1/fecaf/contato', cors(), bodyParserJson, async function(request, re
   }
 });
 
+//Endpoint:PUT para atualizar um contato existente no BD
 app.put(
   "/v1/fecaf/contato/:id", cors(), bodyParserJson, async function (request, response, next) {
     
@@ -110,7 +111,26 @@ app.put(
   }
 );
 
+//Endpoint: DELETE para excluir um contato no BD
+app.delete('/v1/fecaf/contato/:id', cors(), async function (request, response, next) {
+  let id = request.params.id;
+  let result = await controllerContatos.setDeleteContato(id);
+
+  if (result) {
+    response.status(204);
+    response.json({ "message": "Registro excluído com sucesso!" });
+  } else {
+    response.status(404);
+    response.json({
+      status: "erro",
+      message: "Não foi possível excluir o contato.",
+    });
+  }
+});
+
 // É obrigatório para fazer a API ficar aguardando ou escutando novas requisições
 app.listen(8080, function () {
   console.log("API funcionando e aguardando novas Requisições...");
 });
+
+

@@ -39,7 +39,7 @@ const setNewContato = async function (contato) {
   }
 };
 
-//Atualiza um contato existente
+//Atualizar um contato existente
 const setUpdateContato = async function (contato, idContato) {
   if (
     contato.nome == "" ||
@@ -58,8 +58,26 @@ const setUpdateContato = async function (contato, idContato) {
   }
 };
 
-module.exports = {
-  getContatos,
-  setNewContato,
-  setUpdateContato,
+//Excluir contato no BD
+const setDeleteContato = async function(id) {
+  
+  if (id == "" || id == undefined) {
+    return false;
+  } else {
+    let result = await contatoDAO.deleteContato(id);
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }   
+};
+
+
+ module.exports = {
+    getContatos,
+    setNewContato,
+    setUpdateContato,
+    setDeleteContato
 };
