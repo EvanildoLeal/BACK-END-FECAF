@@ -10,22 +10,56 @@ const contatoDAO = require("../model/DAO/contatoDAO.js");
 
 //Retorna todos os contatos do BD
 const getContatos = async function () {
-  //Cria um objeto do tipo JSON
   let jsonContatos = {};
-
-  //Solicita os dados do BD na model
   let dadosContatos = await contatoDAO.selectAllContatos();
 
-  //Valida o retorno dos dados
   if (dadosContatos) {
-      jsonContatos.count = dadosContatos.length;
-      jsonContatos.contatos = dadosContatos;
+    jsonContatos.count = dadosContatos.length;
+    jsonContatos.contatos = dadosContatos;
     return jsonContatos;
   } else {
-      return false;
+    return false;
+  }
+};
+
+//Insere um novo contato no BD
+const setNewContato = async function (contato) {
+  if (
+    contato.nome == "" ||
+    contato.nome == undefined ||
+    contato.cpf == "" ||
+    contato.cpf == undefined ||
+    contato.email == "" ||
+    contato.email == undefined
+  ) {
+    return false;
+  } else {
+    let result = await contatoDAO.insertContato(contato);
+    return result;
+  }
+};
+
+//Atualiza um contato existente
+const setUpdateContato = async function (contato, idContato) {
+  if (
+    contato.nome == "" ||
+    contato.nome == undefined ||
+    contato.cpf == "" ||
+    contato.cpf == undefined ||
+    contato.email == "" ||
+    contato.email == undefined ||
+    idContato == "" ||
+    idContato == undefined
+  ) {
+    return false;
+  } else {
+    let result = await contatoDAO.updateContato(contato, idContato);
+    return result;
   }
 };
 
 module.exports = {
   getContatos,
+  setNewContato,
+  setUpdateContato,
 };

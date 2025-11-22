@@ -28,6 +28,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+//Converter a chegada dos dados em formato JSON
+const bodyParserJson = bodyParser.json();
+
+
 //Criando um objeto do tipo express
 const app = express();
 
@@ -64,6 +68,47 @@ app.get('/v1/fecaf/contatos', cors(), async function (request, response, next) {
       response.status(404);
   }
 });
+
+//Endpoint: POST para inserir um novo contato no BD
+app.post('/v1/fecaf/contato', cors(), bodyParserJson, async function(request, response, next) {
+  let dados = request.body;
+  
+
+
+  let result = await controllerContatos.setNewContato(dados);
+
+  if (result) {
+      response.status(201);
+      response.json({status: 'sucesso', message: 'Contato inserido com sucesso!'});
+  } else {
+      response.status(404);
+      response.json({status: 'erro', message: 'Não foi possível inserir o contato.'});
+  }
+});
+
+app.put(
+  "/v1/fecaf/contato/:id", cors(), bodyParserJson, async function (request, response, next) {
+    
+    //Recebe dados do body e o id do registro
+    let dados = request.body;
+    let id = request.params.id;
+    
+
+    let result = await controllerContatos.setUpdateContato(dados, id);
+
+    if (result) {
+      response.status(200);
+      response.json({"message": "Registro atualizado com sucesso!"});
+    }
+    else {
+      response.status(404);
+      response.json({
+        status: "erro",
+        message: "Não foi possível inserir o contato.",
+      });
+    }
+  }
+);
 
 // É obrigatório para fazer a API ficar aguardando ou escutando novas requisições
 app.listen(8080, function () {

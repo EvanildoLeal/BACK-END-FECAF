@@ -24,6 +24,38 @@ const selectAllContatos = async function () {
   
 }
 
+// contatoDAO.js - Função insertContato
+const insertContato = async function (contato) {
+  
+  let sql = `insert into tbl_contatos(nome, cpf, email) values('${contato.nome}', '${contato.cpf}', '${contato.email}')`; // Removi vírgula extra
+
+  let result = await prisma.$executeRawUnsafe(sql);
+
+  if (result) return true;
+  else return false;
+};
+
+const updateContato = async function (contato, id) {
+    let sql = `update tbl_contatos set
+        nome = '${contato.nome}',
+        cpf  = '${contato.cpf}',
+        email = '${contato.email}' 
+        where id = ${id}`; 
+
+  let result = await prisma.$executeRawUnsafe(sql);
+
+    if (result)
+        return true;
+    else
+        return false;
+};
+
+
+
+
+
 module.exports = {
     selectAllContatos,
+    insertContato,
+    updateContato
 };
